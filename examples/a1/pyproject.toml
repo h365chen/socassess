@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "a1"
+version = "0.1.0"
+description = "Example assessment written with SocAssess"
+authors = ["Huanyi Chen <huanyi.chen@uwaterloo.ca>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+socassess = {path = "../../", develop = true}
+
+[tool.poetry.group.dev.dependencies]
+python-lsp-server = {extras = ["all"], version = "^1.8.0"}
+ipython = "^8.15.0"
+ipdb = "^0.13.13"
+importmagic = "^0.1.7"
+epc = "^0.0.5"
+isort = "^5.12.0"
+pydocstyle = "^6.3.0"
+pytest-datarecorder = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pydocstyle]
+convention = "numpy"
+add_ignore = ["D100"]
