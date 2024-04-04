@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 import xmltodict
@@ -116,6 +117,43 @@ def map_feedback(outcomes: list, ansdir: Path, artifacts: Path):
     return fb
 
 
+def _issubset(cur_set, outcomes):
+    """Check if current set is a subset of the test outcomes.
+
+    A mapping is typically to build a connection between all pre-coded feedback
+    and a large component. A mapping can contain multiple sets, which provides
+    pre-coded feedback for small components. Properly joining and/or hiding
+    feedback for these small components composes the feedback for the large
+    component.
+
+    """
+    # step1: handle non regex matches
+    if cur_set.issubset(frozenset(outcomes)):
+        return True
+
+    # step2: handle regex matches
+    for cs in cur_set:
+        matched = False
+        m = re.match('(.*?)\[\*\]::(passed|failed)', cs, flags=re.I)
+        # only regex patterns can be left after step1; otherwise, it means
+        # there is no match
+        if m is None:
+            return False
+        pattern = m.group(1)  # prefix pattern
+        ot = m.group(2)  # "passed" or "failed"
+        for t in outcomes:
+            m = re.match(f'{pattern}\[.*\]::(passed|failed)', t, flags=re.I)
+            # mismatching "passed" or "failed"
+            if m is not None:
+                matched = True
+                if m.group(1) != ot:
+                    return False
+        if not matched:
+            return False
+    # we went through all cur_set and every row matches; so the regex matches
+    return True
+
+
 def _map_feedback(maps,
                   outcomes: list, ansdir: Path, artifacts: Path):
     """Provide mappings between test outcomes and feedback messages.
@@ -135,7 +173,7 @@ def _map_feedback(maps,
         cur_mapping = maps.selected[qn]
         qn_dict = {}
         for oneset in cur_mapping:
-            if oneset.issubset(frozenset(outcomes)):
+            if _issubset(oneset, outcomes):
                 feedback, fb_level = \
                     feedback_helper.extract(cur_mapping[oneset])
                 if fb_level == FeedbackLevel.SINGLE:
