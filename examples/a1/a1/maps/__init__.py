@@ -23,6 +23,7 @@ selected = {
     "single": mapping.single,
     "combined": mapping.combined,
     "level": mapping.level,
+    "regex": mapping.regex,
     "non_auto": mapping.non_auto,
 }
 
@@ -31,6 +32,7 @@ questions = {
     "single": "regular 1-to-1 test-feedback mapping",
     "combined": "many-to-1 test-feedback mapping",
     "level": "level-structured feedback mapping",
+    "regex": "feedback for parametrized tests using regex",
     "non_auto": "no automated feedback",
     "xxx": "no feedback for this question since it is not selected",
 }

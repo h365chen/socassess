@@ -39,6 +39,17 @@ def test_level_medium_2():
     pass
 
 
+@pytest.mark.parametrize("param", [1, 2, 3, 4])
+def test_regex_all_pass(param):
+    pass
+
+
+@pytest.mark.parametrize("param", [1, 2, 3, 4])
+def test_regex_not_all_pass(param):
+    if param == 3:
+        assert 0
+
+
 def test_ai(artifacts, stu_answer):
     # put student file into artifacts so that its content can be sent to AI for
     # feedback.

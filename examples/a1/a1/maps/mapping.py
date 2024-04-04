@@ -49,6 +49,25 @@ Congrats! test_level_medium_2 passed. This feedback should be shown.
     },
 }
 
+regex = {
+    # This is the case where parametrized tests were used. All matching tests
+    # should match the specified outcome.
+    frozenset([
+        r'test_it::test_regex_all_pass[*]::passed',
+    ]): {
+        'feedback': """
+Congrats! All test_regex tests passed.
+        """.strip(),
+    },
+    frozenset([
+        r'test_it::test_regex_not_all_pass[*]::passed',
+    ]): {
+        'feedback': """
+Oops! Some tests did not pass. This feedback will be shown only if all of them match "passed"
+        """.strip(),  # noqa: E501
+    },
+}
+
 non_auto = {
     # This is the case where automated feedback cannot be provided. This is an
     # empty dict since we always seek human feedback for this `non_auto`
