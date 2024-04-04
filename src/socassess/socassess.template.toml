@@ -1,6 +1,7 @@
 [feature]
 ai = false
 email = false
+raw_feedback = false
 
 
 [template]

@@ -13,6 +13,9 @@ def generate_feedback(ansdir, artifacts, *, config):
     outcomes = test_outcomes(artifacts)
     fb_dict = automated_feedback(outcomes.keys(), ansdir, artifacts)
 
+    enabled_features: dict[str, bool]
+    enabled_features = config.feature_dict
+
     need_expert = fb_dict.pop('need_expert', None)
     if need_expert is not None:
         # prepare the default feedback
@@ -20,16 +23,15 @@ def generate_feedback(ansdir, artifacts, *, config):
                                     template=config.feedback_template)
 
         # overwrite feedback afterwards
-        enabled_features: dict[str, bool]
-        enabled_features = config.feature_dict
-
-        if enabled_features["ai"] is True:
+        if "ai" in enabled_features \
+           and enabled_features["ai"] is True:
             from .ai import ai_feedback
             fb_dict |= ai_feedback(need_expert, config=config)
 
         # email has to be after ai so that ai feedback is observable at this
         # point
-        if enabled_features["email"] is True:
+        if "email" in enabled_features \
+           and enabled_features["email"] is True:
             from .email import email_feedback
 
             # a "_hidden_email_" key will be added
@@ -38,6 +40,16 @@ def generate_feedback(ansdir, artifacts, *, config):
                                       ansdir,
                                       artifacts,
                                       config=config)
+
+    # reveal raw feedback out of pytests
+    if "raw_feedback" in enabled_features \
+       and enabled_features["raw_feedback"] is True:
+        raw_feedback_list = [
+            # None means it is a "passed" test
+            x for x in filter(lambda x: x is not None, outcomes.values())
+        ]
+        if len(raw_feedback_list) > 0:
+            fb_dict["_raw_feedback_out_of_testcases"] = raw_feedback_list
 
     # format feedback dict into text
     # this step has to be the last step
@@ -52,6 +64,9 @@ def test_outcomes(artifacts: Path):
     test_it::test_a::passed
     test_it::test_b::failed
     ...
+
+    It also saves the message of failed tests and tests raising exceptions,
+    which can be displayed if necessary.
 
     """
     xml = artifacts / 'report.xml'
