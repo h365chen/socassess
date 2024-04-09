@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "socassess"
-version = "0.1.1"
+version = "0.2.1"
 description = "make test-based assessment's feedback easy to setup"
 authors = ["Huanyi Chen <huanyi.chen@uwaterloo.ca>"]
 readme = "README.md"
