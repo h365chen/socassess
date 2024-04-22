@@ -134,7 +134,7 @@ def _issubset(cur_set, outcomes):
     # step2: handle regex matches
     for cs in cur_set:
         matched = False
-        m = re.match('(.*?)\[\*\]::(passed|failed)', cs, flags=re.I)
+        m = re.match('(.*?)\\[\\*\\]::(passed|failed)', cs, flags=re.I)
         # only regex patterns can be left after step1; otherwise, it means
         # there is no match
         if m is None:
@@ -142,7 +142,7 @@ def _issubset(cur_set, outcomes):
         pattern = m.group(1)  # prefix pattern
         ot = m.group(2)  # "passed" or "failed"
         for t in outcomes:
-            m = re.match(f'{pattern}\[.*\]::(passed|failed)', t, flags=re.I)
+            m = re.match(f'{pattern}\\[.*\\]::(passed|failed)', t, flags=re.I)
             # mismatching "passed" or "failed"
             if m is not None:
                 matched = True
