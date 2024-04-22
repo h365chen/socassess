@@ -55,7 +55,7 @@ def test_match(cproc: tuple[str, str, str],
                datarecorder):
     fname, feedback, error_msg = cproc
     # record it as a markdown file
-    record_file = feedback_dir / (fname.removesuffix('.sql') + '.md')
+    record_file = feedback_dir / (fname + '.md')
     feedback = feedback.replace('---', '')
     datarecorder.record_data(
         recording_type='txt',
