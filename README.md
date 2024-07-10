@@ -3,11 +3,11 @@
 This is a tool to assist assessment creators to create test-based assessments
 that can provide high-quality formative feedback.
 
-![Generate automated feedback](doc/automated.png)
+![Generate automated feedback](docs/automated.png)
 
 However, if an unexpected test failure happens.
 
-![No automated feedback available](doc/diagram.png)
+![No automated feedback available](docs/diagram.png)
 
 ## Prepare a python environment
 
