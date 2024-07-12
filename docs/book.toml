@@ -3,3 +3,6 @@ authors = ["Huanyi Chen"]
 language = "en"
 multilingual = false
 src = "src"
+
+[output.html]
+smart-punctuation = true
