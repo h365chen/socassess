@@ -1,5 +1,6 @@
 import subprocess
 
+
 def test_mode():
     """Check if the student's program calculates the mode correctly."""
     # Prepare arguments for subprocess
@@ -7,7 +8,7 @@ def test_mode():
     # Run the process
     result = subprocess.run(args, text=True, capture_output=True)
     # Check for abnormal exit conditions
-    assert result.returncode == 0 and result.stdout != "", "Program exited abnormally"
+    assert result.returncode == 0 and result.stdout != "", "Program exited abnormally"  # noqa: E501
     # Verify the output
     lines = result.stdout.splitlines()
     # lines[0] has to contain the output
