@@ -8,8 +8,6 @@ def test_mode():
     result = subprocess.run(args, text=True, capture_output=True)
     # Check for abnormal exit conditions
     assert result.returncode == 0 and result.stdout != "", "Program exited abnormally"
-    # Check if there is a segmentation fault
-    assert result.returncode != -11, "Segfault!"
     # Verify the output
     lines = result.stdout.splitlines()
     # lines[0] has to contain the output
@@ -17,5 +15,4 @@ def test_mode():
     expected_mode = [2, 3]
     assert ans == expected_mode, "Incorrect output"
     # If all assertions pass
-    print("passed")
-
+    pass

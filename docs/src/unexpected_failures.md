@@ -1,18 +1,17 @@
 # Unexpected Failures
 
-Let's consider the following test case used in a first-year programming course.
+Let's consider the following test case used in a first-year programming course
+which requires students to write C programs.
 
 ```python
 def test_mode():
     """Check if the student's program calculates the mode correctly."""
     # Prepare arguments for subprocess
-    args = ["./Mode", "1", "2", "2", "3", "3"]
+    args = ["./mode", "1", "2", "2", "3", "3"]
     # Run the process
     result = subprocess.run(args, text=True, capture_output=True)
     # Check for abnormal exit conditions
     assert result.returncode == 0 and result.stdout != "", "Program exited abnormally"
-    # Check if there is a segmentation fault
-    assert result.returncode != -11, "Segfault!"
     # Verify the output
     lines = result.stdout.splitlines()
     # lines[0] has to contain the output
@@ -20,7 +19,7 @@ def test_mode():
     expected_mode = [2, 3]
     assert ans == expected_mode, "Incorrect output"
     # If all assertions pass
-    print("passed")
+    pass
 ```
 
 Apparently the assessment creator has coded several novice-friendly message to
@@ -38,4 +37,26 @@ characters, failling the `map(int, ...)`. The feedback, in this case, will be:
 ValueError: invalid literal for int() with base 10: 'mode'
 ```
 
-This is not novice-friendly.
+This is not novice-friendly. Even worse, it has nothing to do with C.
+
+So the point I would like to mention here is that most of the time, what we want
+is to ensure the test case to only fail at assertions (or any place that is
+expected). If the test case failed at a place outside assertions. This is what I
+referred to as an unexpected failure.
+
+## Solution
+
+The solution is actually simple: for any test case that contains non-assertion
+code, we code a outcome *flipped* version.
+
+```python
+def test_a():
+    x = common_code()
+    assert x == 0
+
+def test_a_flipped():
+    x = common_code()
+    assert x != 0
+```
+
+If one passed and the other failed, we know they both reached the assertion.

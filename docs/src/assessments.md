@@ -27,10 +27,9 @@ case failures when running a student's program, we can look into the test case
 detail and the student's code, then offer the student a feedback.
 
 Well, that looks very stupid since it is essentially a manual process. However,
-it actually leads use to think about one question: *why can't we tell the exact
+it actually leads us to think about one question: *why can't we tell the exact
 bug when seeing a failed test case?*
 
-It is because a test case can fail due to reasons that were not expected. I
-refer this as **Unexpected Failure**s.
+It is because a test case can fail due to reasons that were not expected.
 
 I will describe it in the next section.
