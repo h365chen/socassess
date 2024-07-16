@@ -47,7 +47,7 @@ referred to as an unexpected failure.
 ## Solution
 
 The solution is actually simple: for any test case that contains non-assertion
-code, we code a outcome *flipped* version.
+code, we code an outcome *flipped* version.
 
 ```python
 def test_a():
