@@ -1,7 +1,7 @@
 # Missing Dependencies
 
 Unexpected failure is about potential issues within each test case. However, a
-test case could also fail because its a prerequisite test case has failed.
+test case could also fail because its prerequisite test case has failed.
 
 In general, when it comes to unit testing, most people will think that test
 cases should be isolated from others. It does work. It is because software
@@ -15,12 +15,12 @@ constraint that students cannot see test case details.
 | `check_property_B` | failed  |
 | `check_property_C` | failed  |
 
-For example, in the above scenario, it can happen that property *C* depends on
-property *B* to satisfy. Therefore, if `check_propperty_B` fails,
+For example, in the above scenario, it can happen that property _C_ depends on
+property _B_ to satisfy. Therefore, if `check_propperty_B` fails,
 `check_property_C` is bound to fail. However, students are unaware of those
 implicit dependencies since they have no knowledge of their details.
 Consequently, they might mistakenly believe there are issues with properties
-other than property *B*, even though resolving the issue with property *B* would
+other than property _B_, even though resolving the issue with property _B_ would
 lead to all test cases to pass.
 
 It is better to have students see the following, where `check_property_C` is
