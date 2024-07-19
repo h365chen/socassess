@@ -29,7 +29,8 @@ problems.
 I'm sure there are more things to discuss if the complexity of the assessment
 code is high, but here are several essential concepts about pytest that allowed
 me to write my assessment code efficiently. In particular, they are _test
-discovery_, _fixture_, _fixture scope_, and _teardown/cleanup_.
+discovery_, _fixture_, _fixture scope_, _teardown/cleanup_, and _overriding
+fixtures_.
 
 ### Test Discovery ([see its pytest doc](<https://docs.pytest.org/en/stable/explanation/goodpractices.html#conventions-for-python-test-discovery>))
 
@@ -49,14 +50,12 @@ tests
 
 ```python
 # a.py
-
 def test_a():
     assert True
 ```
 
 ```python
 # test_a.py
-
 def test_a():
     assert True
 
@@ -74,26 +73,31 @@ class TestA:
 Then the results of `pytest -v tests` will be since `a.py` and class `A` are
 skipped.
 
+Notice that the methods are only referencing `self` in the signature as a
+formality. No state is tied to the actual test class. This is a difference from
+some other unit testing frameworks.
+
 ```bash
 tests/test_a.py::test_a PASSED
 tests/test_a.py::TestA::test_a PASSED
 ```
 
-### Fixtures ([see its pytest doc](<https://docs.pytest.org/en/stable/explanation/fixtures.html#about-fixtures>))
+### Fixture ([see its pytest doc](<https://docs.pytest.org/en/stable/explanation/fixtures.html#about-fixtures>))
 
 > In testing, a fixture provides a defined, reliable and consistent context for
 > the tests. This could include environment (for example a database configured
 > with known parameters) or content (such as a dataset).
 
-pytest knows a particular function to be a fixture if it is decorated with
-`@pytest.fixture`. There can be more than one fixture for a test. Fixtures can
-use (or depend on) other fixtures. If an earlier fixture has a problem and
-raises an exception, pytest will stop executing fixtures for that test and mark
-the test as having an error, which means the test could not be attempted.
+pytest knows a particular function to be a fixture function if it is decorated
+with `@pytest.fixture`, and its returned object is a fixture. There can be more
+than one fixture for a test. Fixtures can use (or depend on) other fixtures. If
+an earlier fixture function has a problem and raises an exception, pytest will
+stop executing fixture functions for that test. Meanwhile, it will mark the test
+as having an error, indicating that the test could not be attempted.
 
 A fixture often returns something which can be later used in test functions. In
 the following example, the `my_obj` argument in the `test_obj` function is the
-object returned by the `my_obj` fixture.
+fixture returned by the `my_obj` fixture function.
 
 ```python
 import pytest
@@ -121,8 +125,147 @@ some of them which I think are very useful.
   it provides information for the requesting test function, see an example
   [here](<https://docs.pytest.org/en/stable/example/simple.html#request-example>).
 
-
 ### Fixture Scope ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes>))
 
 By default, fixtures have the scope of `function`, which means fixtures are
-destroyed at the end of the test.
+destroyed (_i.e._, the cached objects are destroyed if any) at the end of the
+test. However, we can make them with other scopes so that a fixture function is
+invoked only once for multiple tests requiring it.
+
+> Fixtures are created when first requested by a test, and are destroyed based
+> on their scope:
+>
+> - `function`: the default scope, the fixture is destroyed at the end of the
+>   test.
+>
+> - `class`: the fixture is destroyed during teardown of the last test in the
+>   class.
+>
+> - `module`: the fixture is destroyed during teardown of the last test in the
+>   module.
+>
+> - `package`: the fixture is destroyed during teardown of the last test in the
+>   package where the fixture is defined, including sub-packages and
+>   sub-directories within it.
+>
+> - `session`: the fixture is destroyed at the end of the test session.
+
+I would also recommend going through the pytest documentation about [fixture
+availability](<https://docs.pytest.org/en/stable/reference/fixtures.html#fixture-availability>).
+
+### Teardown/Cleanup ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#teardown-cleanup-aka-fixture-finalization>))
+
+If a test requires some necessary preparations by requiring one or more
+fixtures, we would like to have necessary clean up so that those
+preparations---which is only necessary for the particular test---do not mess
+with any other tests.
+
+pytest provides a very simple mechanism to achieve this, which is to use `yield`
+instead of `return` inside fixture functions. Any code placed after `yield` is
+considered teardown code. For example:
+
+```python
+@pytest.fixture
+def my_fixture():
+    my_obj = setup_code()
+    yield my_obj
+    teardown_code()
+```
+
+If `setup_code` throws an exception, pytest will not try to run the
+`teardown_code`. Otherwise, pytest will always attempt to execute
+`teardown_code`.
+
+Insofar it is enough for us to understand how pytest does teardown, but it is
+recommended to read about [safe
+teardown](<https://docs.pytest.org/en/stable/how-to/fixtures.html#safe-teardowns>).
+
+### Overriding Fixture ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#overriding-fixtures-on-various-levels>))
+
+Fixture functions can be defined in the same `.py` file with its requiring
+tests. However, it is likely to cause problems if we want to use fixtures
+defined in different files. For example:
+
+```mermaid
+graph TD;
+    subgraph test_b.py
+        fixture_b
+        test_b
+    end
+
+    subgraph test_a.py
+        test_a
+        fixture_a
+    end
+
+    test_a-->|uses|fixture_b;
+    test_b-->|uses|fixture_a;
+```
+
+Therefore, pytest allows us to put fixture functions into a file called
+`conftest.py` so that tests from multiple test modules in the directory can
+access those fixture functions.
+
+```mermaid
+graph TD;
+    subgraph test_b.py
+        test_b
+    end
+
+    subgraph test_a.py
+        test_a
+    end
+
+    subgraph conftest.py
+        fixture_a
+        fixture_b
+    end
+
+    test_a-->|uses|fixture_b;
+    test_b-->|uses|fixture_a;
+```
+
+Please do not mix the concept of the fixture scope with this. In the following
+example, the module scoped fixture function will return different fixtures for
+`test_a` and `test_b`, but the session scoped fixture function will return the
+same fixture.
+
+```python
+# conftest.py
+import random
+
+import pytest
+
+
+@pytest.fixture(scope="module")
+def module_val():
+    """Generate a random number."""
+    return random.randint(0, 9)
+
+
+@pytest.fixture(scope="session")
+def session_val():
+    """Generate a random number."""
+    return random.randint(0, 9)
+```
+
+```python
+# test_a.py
+def test_a(module_val, session_val):
+    # intention fail so we can see the values
+    assert 0, (module_val, session_val)
+```
+
+```python
+# test_b.py
+def test_b(module_val, session_val):
+    # intention fail so we can see the values
+    assert 0, (module_val, session_val)
+```
+
+A sample output looks like:
+
+```bash
+FAILED test_a.py::test_a - AssertionError: (2, 4)
+FAILED test_b.py::test_b - AssertionError: (6, 4)
+```
