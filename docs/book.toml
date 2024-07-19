@@ -6,3 +6,9 @@ src = "src"
 
 [output.html]
 smart-punctuation = true
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
