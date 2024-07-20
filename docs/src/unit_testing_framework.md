@@ -269,3 +269,39 @@ A sample output looks like:
 FAILED test_a.py::test_a - AssertionError: (2, 4)
 FAILED test_b.py::test_b - AssertionError: (6, 4)
 ```
+
+The simplest approach to override fixtures is probably by creating a different
+`conftest.py` file. In the following example, we override the `expected_len`
+fixture for special cases.
+
+```python
+tests/
+    conftest.py
+        # content of tests/conftest.py
+        import pytest
+
+        @pytest.fixture
+        def expected_len():
+            return 8
+
+    test_username.py
+        # content of tests/test_username.py
+        def test_len(expected_len):
+            username = 'username'  # ideally this is extracted from the student's file name
+            assert len(username) == expected_len
+
+    special_cases/
+        conftest.py
+            # content of tests/special_cases/conftest.py
+            import pytest
+
+            @pytest.fixture
+            def expected_len():
+                return 16  # override
+
+        test_username_special.py
+            # content of tests/special_cases/test_username_special.py
+            def test_len(expected_len):
+                username = 'special-username'  # ideally this is extracted from the student's file name
+                assert len(username) == expected_len
+```
