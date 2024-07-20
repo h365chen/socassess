@@ -26,8 +26,8 @@ problems.
 
 ## pytest
 
-I'm sure there are more things to discuss if the complexity of the assessment
-code is high, but here are several essential concepts about pytest that allowed
+I'm sure there are more things to discuss when the complexity of the assessment
+code goes up, but here are several essential concepts about pytest that allowed
 me to write my assessment code efficiently. In particular, they are _test
 discovery_, _fixture_, _fixture scope_, _teardown/cleanup_, and _overriding
 fixtures_.
