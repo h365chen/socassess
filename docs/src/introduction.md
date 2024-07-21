@@ -22,6 +22,7 @@ and leaving it as is could suffice. However, a better approach might be:
 1. **Otherwise, seek human feedback.**
 
 While there were several other reasons such as easier assessment code management
-and introducing connections among test cases, the aforementioned stratey was the
-primary reason for me to create this project. I hope this tool can assist
-assessment creators to develop better automated assessments.
+and introducing connections among test cases, to achieve the aforementioned
+better approach was the primary reason for me to create this project. I hope
+this tool can assist assessment creators to develop better automated
+assessments.
