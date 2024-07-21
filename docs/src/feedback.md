@@ -65,4 +65,5 @@ situation.
 
 When there is no automated feedback message can be provided, socassess will seek
 human feedback. Currently, it can send emails to instructors, where the content
-can be customized (see `socassess.toml`).
+can be customized (see
+[`socassess.toml`](<https://github.com/h365chen/socassess/blob/main/examples/a1/a1/socassess.toml>)).
