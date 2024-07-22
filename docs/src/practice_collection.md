@@ -2,5 +2,5 @@
 
 TODO
 
-I'll demonstrate several practice that I used pytest to compose my automated
+I'll demonstrate several practice that I used socassess to compose my automated
 assessments.
