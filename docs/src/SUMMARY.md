@@ -12,6 +12,8 @@
 
 - [Feedback](./feedback.md)
 
+[Inside socassess](./inside_socassess.md)
+
 [Practice Collection](./practice_collection.md)
 
 
