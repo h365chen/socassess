@@ -177,12 +177,11 @@ non_auto: automated feedback is not available.
 
 There are times that certain feedback should be given higher priority than
 others, even though their underlying test cases do not have dependencies. For
-example, if a student's program has style issue and meanwhile it is not
-compilable, and you somehow put the relevant feedback messages in the same
-question, in this case, you might just want to provide feedback focusing on the
-compilation. Feedback on style issues can be postponed until the student's
-program becomes compilable. `FeedbackLevel` is used to control feedback
-priorities.
+example, if a student's code has style issue and meanwhile it is not compilable,
+and you somehow put the relevant feedback messages in the same question, in this
+case, you might just want to provide feedback focusing on the compilation.
+Feedback on style issues can be postponed until the student's program becomes
+compilable. `FeedbackLevel` is used to control feedback priorities.
 
 
 The first case is to control feedback priorities within the same question.
