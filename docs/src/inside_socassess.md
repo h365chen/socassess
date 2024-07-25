@@ -33,7 +33,7 @@ imports the module `maps`---which also means the module/folder name has to be
 "maps"---and then it will look for the `selected` dict.
 
 The `selected` dict contains the things to be assessed. You can think of it as
-sub-questions for an assignment, or small components of a large component. For
+*question*s for an assignment, or small components of a large component. For
 example, you can make it contain `compile` and `execution` like the following,
 indicating you want to provide feedback for `compile` and `execution`
 separately.
@@ -47,24 +47,32 @@ selected = {
 
 For each key, socassess uses its corresponding dict value to map test case
 outcomes into feedback messages. For example, in the above case,
-`mapping.single` is for the `single` component, whose content is shown here:
+`mapping.single` is for the `single` question. Assume its content is as:
 
 ```python
+# inside mapping.py
 single = {
     frozenset([
         'test_it::test_single::passed',
     ]): {
-        'feedback': 'Congrats! test_single passed',
+        'feedback': 'Congrats! test_single passed.',
     },
 }
 ```
 
 Given that, socassess will check if the test `test_it::test_single` has passed
-or not. If it passed, then the feedback message _Congrats! test_single passed_
+or not. If it passed, then the feedback message *Congrats! test_single passed*
 will be shown.
 
+```text
+## single
+
+Congrats! test_single passed.
+
+```
+
 If an automated feedback cannot be provided, a default feedback message will be
-shown for the relevant component, informing students that there are certain
+shown for the relevant question, informing students that there are certain
 parts haven't been assessed. For the above case, it will show:
 
 ```text
@@ -83,32 +91,215 @@ not_available = "{question}: automated feedback is not available"
 
 Where `{question}` will be replaced by the dict key, _i.e._, `non_auto`.
 
-One can code question contents in the `__init__.py` file for quick reference,
-such as:
+You may notice in addition to `not_available`, there are few more configurable
+items in the `[template]` table (TOML calls it a
+[*table*](<https://toml.io/en/v1.0.0#table>)).
+
+The default feedback template in
+[`socassess.toml`](<https://github.com/h365chen/socassess/blob/main/examples/a1/a1/socassess.toml>)
+is:
+
+```toml
+[template]
+# feedback of one question
+one_separator = "\n"  # to join the list of feedback within a question
+one = '''
+## {question}
+
+{text}
+''' # support two keys: `question` and `text`
+
+# full feedback of all questions
+full_separator = "\n"  # to join the list of feedback of all question
+full = '''
+# Feedback
+
+{text}''' # support one key: `text`
+not_available = "{question}: automated feedback is not available." # support one key: `question`
+```
+
+socassess assumes there can be multiple maps for a single question.
 
 ```python
-from . import mapping
-
-__all__ = [
-    "selected",
-]
-
-selected = {
-    "single": mapping.single,
-    "combined": mapping.combined,
-    "level": mapping.level,
-    "regex": mapping.regex,
-    "non_auto": mapping.non_auto,
-}
-
-questions = {
-    "single": "regular 1-to-1 test-feedback mapping",
-    "combined": "many-to-1 test-feedback mapping",
-    "level": "level-structured feedback mapping",
-    "regex": "feedback for parametrized tests using regex",
-    "non_auto": "no automated feedback",
-    "xxx": "no feedback for this question since it is not selected",
+level = {
+    frozenset([
+        'test_it::test_level_1::passed',
+    ]): {
+        'feedback': "Congrats! test_level_1 passed.",
+    },
+    frozenset([
+        'test_it::test_level_2::passed',
+    ]): {
+        'feedback': "Congrats! test_level_2 passed.",
+    },
 }
 ```
 
-However, the `questions` dict will not be used by socassess.
+In the above example, if the student's program passed both
+`test_it::test_level_1` and `test_it::test_level_2`, then both feedback messages
+*Congrats! test_level_1 passed.* and *Congrats! test_level_2 passed.* should be
+shown. socassess uses `one_separator` to concat the two messages to form
+`{text}`, then the final message for this one question will be formatted using
+`one`, with `{question}` being replaced by `level`. Therefore, the feedback
+should look like:
+
+```text
+## level
+
+Congrats! test_level_1 passed.
+Congrats! test_level_2 passed.
+
+```
+
+If there are multiple questions, for example if we have questions `single`,
+`level`, and `non_auto`, then socassess will use `full_separator` to concat
+their formatted feedback messages to form `{text}` for `full`:
+
+```text
+# Feedback
+
+## single
+
+Congrats! test_single passed.
+
+## level
+
+Congrats! test_level_1 passed.
+Congrats! test_level_2 passed.
+
+## non_auto
+
+non_auto: automated feedback is not available.
+
+```
+
+## `FeedbackLevel`
+
+There are times that certain feedback should be given higher priority than
+others, even though their underlying test cases do not have dependencies. For
+example, if a student's program has style issue and meanwhile it is not
+compilable, and you somehow put the relevant feedback messages in the same
+question, in this case, you might just want to provide feedback focusing on the
+compilation. Feedback on style issues can be postponed until the student's
+program becomes compilable. `FeedbackLevel` is used to control feedback
+priorities.
+
+
+The first case is to control feedback priorities within the same question.
+
+```python
+from socassess import FeedbackLevel
+
+level = {
+    frozenset([
+        'test_it::test_level_lowest::passed',
+    ]): {
+        'feedback': """
+Congrats! test_level_lowest passed. However, this feedback should not be shown.
+        """.strip(),
+        'level': FeedbackLevel.LOWEST,
+    },
+    frozenset([
+        'test_it::test_level_medium_1::passed',
+    ]): {
+        'feedback': """
+Congrats! test_level_medium_1 passed. This feedback should be shown.
+        """.strip(),
+        'level': FeedbackLevel.MEDIUM,
+    },
+    frozenset([
+        'test_it::test_level_medium_2::passed',
+    ]): {
+        'feedback': """
+Congrats! test_level_medium_2 passed. This feedback should be shown.
+        """.strip(),
+        'level': FeedbackLevel.MEDIUM,
+    },
+}
+```
+
+Given the above mapping, if a program passed all `test_it::test_level_lowest`,
+`test_it::test_level_medium_1`, and `test_it::test_level_medium_2`, only the
+feedback for `test_it::test_level_medium_1` and `test_it::test_level_medium_2`
+will be shown because of the higher feedback level:
+
+
+```text
+## level
+
+Congrats! test_level_medium_1 passed. This feedback should be shown.
+Congrats! test_level_medium_2 passed. This feedback should be shown.
+
+```
+
+The possible values for `FeedbackLevel` are (See
+[level.py](<https://github.com/h365chen/socassess/blob/main/src/socassess/level.py>)):
+
+```python
+class FeedbackLevel(IntEnum):
+    LOWEST = 10  # default
+    LOW = 20
+    MEDIUM = 30
+    HIGH = 40
+    HIGHEST = 50
+    # only display this feedback and ignore feedback for all other questions
+    SINGLE = 100
+```
+
+Since they are `IntEnum`, so using an integer also works, such as:
+
+```python
+    {
+        'feedback': "...",
+        'level': 5,
+    }
+```
+
+To control feedback priorities across questions, we have to use
+`FeedbackLevel.SINGLE`. If a feedback message to shown is configured at the
+level of `FeedbackLevel.SINGLE`, then socassess will only display this feedback
+message, regardless feedback levels.
+
+```python
+level = {
+    frozenset([
+        'test_it::test_level_single::passed',
+    ]): {
+        'feedback': """
+Congrats! test_level_single passed. Only this feedback will be shown.
+        """.strip(),
+        'level': FeedbackLevel.SINGLE,  # 100
+    },
+    frozenset([
+        'test_it::test_level_very_high::passed',
+    ]): {
+        'feedback': """
+Congrats! test_level_very_high passed. This feedback should not be shown.
+        """.strip(),
+        'level': 200,  # higher than FeedbackLevel.SINGLE
+    },
+}
+```
+
+In the above case, assuming the program passed all relevant test cases, the
+feedback will be:
+
+```text
+# Feedback
+
+## _single_feedback_only
+
+Congrats! test_level_single passed. Only this feedback will be shown.
+
+```
+
+The key is hard-coded as `_single_feedback_only`, which might be changed in the
+future, but it is what it is for now.
+
+A use case is when the submitted file is incorrectly named
+(`test_incorrect_file_name`) or not compilable (`test_compilation`), then it
+might lead to lots of `not_available` feedback since test cases for other
+questions are likely to be `skipped` and thus socassess cannot find valid
+mappings for those questions. In this case, setting the feedback priority for
+`test_incorrect_file_name` or `test_compilation` as `FeedbackLevel.SINGLE` is
+ideal.
