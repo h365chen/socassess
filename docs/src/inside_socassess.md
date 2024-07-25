@@ -302,3 +302,6 @@ questions are likely to be `skipped` and thus socassess cannot find valid
 mappings for those questions. In this case, setting the feedback priority for
 `test_incorrect_file_name` or `test_compilation` as `FeedbackLevel.SINGLE` is
 ideal.
+
+Insofar a basic introduction of socassess is provided. The next few sections
+will talk about more complex use cases.
