@@ -12,6 +12,9 @@ git-repository-url = "https://github.com/h365chen/socassess"
 [output.html.print]
 enable = false
 
+[output.html.code]
+hidelines = { python = "~" }
+
 [preprocessor]
 
 [preprocessor.mermaid]
