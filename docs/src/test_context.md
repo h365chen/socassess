@@ -163,25 +163,24 @@ from socassess import userargs
 
 def shared_func(params: str):
     content = (userargs.artifacts / 'test_case_context.txt').open('r')
-    # filter out the lines which contain `params`
     filtered_lines = []
     for line in content:
         if params in line:
             filtered_lines.append(line)
-    return ''.join(filtered_lines)
+    return f"""
+{params} passed.
+
+In addition, here are more detail of it:
+
+{''.join(filtered_lines)}
+    """.strip()
 
 
 detail = {
     frozenset([
         'test_it::test_and_provide_context_1::passed',
     ]): {
-        'feedback': """
-Congrats! test_and_provide_context_1 passed.
-
-In addition, here are more detail of it:
-
-{content}
-        """.strip(),
+        'feedback': "Congrats! {content}",
         'function': {
             'name': shared_func,
             'params': 'test_and_provide_context_1',
@@ -190,13 +189,7 @@ In addition, here are more detail of it:
     frozenset([
         'test_it::test_and_provide_context_2::passed',
     ]): {
-        'feedback': """
-Congrats! test_and_provide_context_2 passed.
-
-In addition, here are more detail of it:
-
-{content}
-        """.strip(),
+        'feedback': "Congrats! {content}",
         'function': {
             'name': shared_func,
             'params': 'test_and_provide_context_2',
@@ -218,7 +211,6 @@ test_and_provide_context_1: log line #1
 test_and_provide_context_1: log line #2
 test_and_provide_context_1: log line #3
 test_and_provide_context_1: log line ...
-
 Congrats! test_and_provide_context_2 passed.
 
 In addition, here are more detail of it:
