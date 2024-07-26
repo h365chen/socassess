@@ -12,9 +12,21 @@
 
   - [Feedback](./feedback.md)
 
-- [Inside socassess](./inside_socassess.md)
+- [Use socassess](./use_socassess.md)
 
-  - [Use Test Context](./test_context.md)
+  - [Basic](./basic_use_of_socassess.md)
+
+  - [Test Context](./test_context.md)
+
+  - [Parametrized Test](./parametrized_test.md)
+
+  - [Raw Test Case Outcomes](./raw_test_case_outcomes.md)
+
+  - [Non-Automated Feedback](./non_automated_feedback.md)
+
+    - [Configure Email](./configure_email.md)
+
+    - [Use ChatGPT](./use_chatgpt.md)
 
 - [Practice Collection](./practice_collection.md)
 
