@@ -97,7 +97,7 @@ test_and_provide_context: log line #3
 test_and_provide_context: log line ...
 ```
 
-## Use function with params
+## Use function with parameters
 
 It is possible that the same function being used at multiple places, with only
 few differences. Then we can provide a `params` parameter to the function.
