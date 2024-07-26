@@ -101,12 +101,13 @@ test_and_provide_context: log line ...
 
 It is possible that the same function being used at multiple places, with only
 few differences. Then we can provide a `params` parameter to the function.
-However, it requires the function coded in the form `def func(params)`. It is
-generally useful when the function itself is complex. Here is an example:
+However, it requires the function to be coded in the form `def func(params)`. It
+is generally useful when the function itself is complex. Here is an example:
 
 ```python
 # test cases (always pass)
 # note that we assume they are executed sequentially
+# so it is ok for them to append text to the same file
 
 from pathlib import Path
 
@@ -128,6 +129,31 @@ def test_and_provide_context_2(artifacts: Path):
     f.write("test_and_provide_context_2: log line ...\n")
     assert True
 ```
+
+The essential change is to replace
+
+```python
+{
+    'feedback': ...,
+    'function': myfunc,
+    ...
+}
+```
+
+To
+
+```python
+{
+    'feedback': ...,
+    'function': { 'name': myfunc, 'params': myparams },
+    ...
+}
+```
+
+The `params` can be anything you like, such as a `str`, a `list`, a `dict`, and
+so on. Here we have `def shared_func(params)` with `params` assigned to
+`test_and_provide_context_1` or `test_and_provide_context_2` for different
+cases.
 
 ```python
 # maps
