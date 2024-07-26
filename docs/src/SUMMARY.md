@@ -14,7 +14,7 @@
 
 - [Inside socassess](./inside_socassess.md)
 
-  - [Use Test Case Context](./test_case_context.md)
+  - [Use Test Context](./test_context.md)
 
 - [Practice Collection](./practice_collection.md)
 
