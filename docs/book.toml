@@ -7,6 +7,10 @@ src = "src"
 [output.html]
 smart-punctuation = true
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
+git-repository-url = "https://github.com/h365chen/socassess"
+
+[output.html.print]
+enable = false
 
 [preprocessor]
 
