@@ -67,7 +67,7 @@ detail = {
         'feedback': """
 Congrats! test_and_provide_context passed.
 
-In addition, here are more detail of it:
+In addition, here are more detail for it:
 
 {content}
         """.strip(),
@@ -89,7 +89,7 @@ case, the automated feedback will be:
 
 Congrats! test_and_provide_context passed.
 
-In addition, here are more detail of it:
+In addition, here are more detail for it:
 
 test_and_provide_context: log line #1
 test_and_provide_context: log line #2
@@ -152,8 +152,7 @@ To
 
 The `params` can be anything you like, such as a `str`, a `list`, a `dict`, and
 so on. Here we have `def shared_func(params)` with `params` assigned to
-`test_and_provide_context_1` or `test_and_provide_context_2` for different
-cases.
+`test_and_provide_context_1` or `test_and_provide_context_2` separately.
 
 ```python
 # maps
@@ -170,7 +169,7 @@ def shared_func(params: str):
     return f"""
 {params} passed.
 
-In addition, here are more detail of it:
+In addition, here are more detail for it:
 
 {''.join(filtered_lines)}
     """.strip()
@@ -205,7 +204,7 @@ The feedback will be:
 
 Congrats! test_and_provide_context_1 passed.
 
-In addition, here are more detail of it:
+In addition, here are more detail for it:
 
 test_and_provide_context_1: log line #1
 test_and_provide_context_1: log line #2
@@ -213,7 +212,7 @@ test_and_provide_context_1: log line #3
 test_and_provide_context_1: log line ...
 Congrats! test_and_provide_context_2 passed.
 
-In addition, here are more detail of it:
+In addition, here are more detail for it:
 
 test_and_provide_context_2: log line #1
 test_and_provide_context_2: log line #2
