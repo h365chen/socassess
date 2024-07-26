@@ -29,8 +29,8 @@ selected = {
 ```
 
 The `"selected"` inside `__all__` is required since socassess dynamically
-imports the module `maps`---which also means the module/folder name has to be
-"maps"---and then it will look for the `selected` dict.
+imports the module _`maps`_---which also means the module/folder name has to be
+*maps*---and then it will look for the `selected` dict.
 
 The `selected` dict contains the things to be assessed. You can think of it as
 *question*s for an assignment, or small components of a large component. For
@@ -302,6 +302,58 @@ questions are likely to be `skipped` and thus socassess cannot find valid
 mappings for those questions. In this case, setting the feedback priority for
 `test_incorrect_file_name` or `test_compilation` as `FeedbackLevel.SINGLE` is
 ideal.
+
+## `artifacts/report.xml`
+
+When invoking socassess, it requires the `--artifacts` to be specified. This
+option asks for the user to specify the folder to save generated artifacts.
+Usually, I will invoke socassess using:
+
+```bash
+socassess feedback --artifacts=artifacts ...
+```
+
+In socassess, the provided maps does not access the pytest results directly. The
+pytest results are saved into a file called `report.xml` under the specified
+artifacts path. Therefore in my case, it will be `artifacts/report.xml`.
+
+The first reason is sometimes I would like to access the intermediate result for
+further inspection. The second reason is certain platforms such as GitLab accept
+XML file for displaying test results. The third reason is that I don't have to
+rerun pytest when I just want to tweak my feedback messages; this is very useful
+when a certain test takes a long time and meanwhile you are sure that the result
+of it will not change.
+
+For example, assume we are inside the `a1/a1` folder, then the following command
+which invokes both pytest and maps:
+
+```bash
+socassess feedback \
+    --config=socassess.toml \
+    --artifacts=artifacts \
+    --ansdir=stu \
+    --probing=probing_tests --feedback=maps
+```
+
+is the same as invoke pytest and maps separately:
+
+```bash
+# first command
+socassess feedback \
+    --config=socassess.toml \
+    --artifacts=artifacts \
+    --ansdir=stu \
+    --probing=probing_tests
+# second command
+socassess feedback \
+    --config=socassess.toml \
+    --artifacts=artifacts \
+    --ansdir=stu \
+    --feedback=maps
+```
+
+To tweak my feedback messages, I can invoke the second command multiple times
+while the first command only once.
 
 Insofar a basic introduction of socassess is provided. The next few sections
 will talk about more complex use cases.
