@@ -14,7 +14,7 @@
 
 - [Use socassess](./use_socassess.md)
 
-  - [Basic](./basic_use_of_socassess.md)
+  - [Basic Usage](./basic_use_of_socassess.md)
 
   - [Test Context](./test_context.md)
 
