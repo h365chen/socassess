@@ -7,7 +7,7 @@ that can provide high-quality formative feedback.
 
 However, if an unexpected test failure happens.
 
-![No automated feedback available](docs/figs/diagram.png)
+![No automated feedback available](docs/src/figs/diagram.png)
 
 ## Prepare a python environment
 
