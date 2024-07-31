@@ -59,7 +59,7 @@ Given that, socassess will check if the test `test_it::test_single` has passed
 or not. If it passed, then the feedback message *Congrats! test_single passed*
 will be shown.
 
-```text
+```
 ## single
 
 Congrats! test_single passed.
@@ -70,7 +70,7 @@ If an automated feedback cannot be provided, a default feedback message will be
 shown for the relevant question, informing students that there are certain
 parts haven't been assessed. For the above case, it will show:
 
-```text
+```
 ## non_auto
 
 non_auto: automated feedback is not available
@@ -278,7 +278,7 @@ Congrats! test_level_very_high passed. This feedback should not be shown.
 In the above case, assuming the program passed all relevant test cases, the
 feedback will be:
 
-```text
+```
 # Feedback
 
 ## _single_feedback_only
@@ -339,6 +339,7 @@ socassess feedback \
     --artifacts=artifacts \
     --ansdir=stu \
     --probing=probing_tests
+
 # second command
 socassess feedback \
     --config=socassess.toml \

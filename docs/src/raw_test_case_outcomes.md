@@ -69,7 +69,7 @@ This approach allows you to see test summary info from pytest alongside with
 feedback messages. If you set that in the `socassess.toml` of `a1`, running
 socassess will give you:
 
-```text
+```
 # Feedback
 
 ## single

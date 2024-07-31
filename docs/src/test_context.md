@@ -84,7 +84,7 @@ When seeing such a callable, socassess will try to call it. Then socassess will
 use its result to fill `{content}` (if there's any). Therefore, for the above
 case, the automated feedback will be:
 
-```text
+```
 ## detail
 
 Congrats! test_and_provide_context passed.
