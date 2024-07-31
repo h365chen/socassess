@@ -9,5 +9,5 @@ The ideal workflow looks like:
 ![](figs/diagram.png "The ideal workflow of providing feedback in socassess")
 
 Currently, when automated feedback cannot be provided, socassess allows users to
-_send an email to the instructor_, _ask ChatGPT to provide feedback_ with a
-customizable prompt, or _combine the both_.
+_ask ChatGPT to provide feedback_ with a customizable prompt and _send an email
+to the instructor_.

@@ -24,9 +24,9 @@
 
   - [Non-Automated Feedback](./non_automated_feedback.md)
 
-    - [Configure Email](./configure_email.md)
+    - [AI Feedback](./ai_feedback.md)
 
-    - [Use ChatGPT](./use_chatgpt.md)
+    - [Configure Email](./configure_email.md)
 
 - [Practice Collection](./practice_collection.md)
 
