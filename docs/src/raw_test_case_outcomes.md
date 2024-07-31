@@ -55,8 +55,8 @@ re-created._
 
 ## Setting `raw_feedback = true` in `socassess.toml`
 
-The last approach is to set `raw_feedback` to `true` in the `socassess.toml`,
-such as:
+The last approach is premature, which is to set `raw_feedback` to `true` in the
+`socassess.toml`, such as:
 
 ```toml
 [feature]
@@ -101,5 +101,3 @@ assert 0
 AssertionError: failed due to unknown reason
 assert 0
 ```
-
-However, it is not yet fully implemented.
