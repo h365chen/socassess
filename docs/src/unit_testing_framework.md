@@ -32,7 +32,7 @@ me to write my assessment code efficiently. In particular, they are _test
 discovery_, _fixture_, _fixture scope_, _teardown/cleanup_, and _overriding
 fixtures_.
 
-### Test Discovery ([see its pytest doc](<https://docs.pytest.org/en/stable/explanation/goodpractices.html#conventions-for-python-test-discovery>))
+### Test Discovery ([see its pytest document](<https://docs.pytest.org/en/stable/explanation/goodpractices.html#conventions-for-python-test-discovery>))
 
 In our case, we just need to remember that pytest implements the standard Python
 test discovery. That means it will search for `test_*.py` or `*_test.py` files,
@@ -82,7 +82,7 @@ tests/test_a.py::test_a PASSED
 tests/test_a.py::TestA::test_a PASSED
 ```
 
-### Fixture ([see its pytest doc](<https://docs.pytest.org/en/stable/explanation/fixtures.html#about-fixtures>))
+### Fixture ([see its pytest document](<https://docs.pytest.org/en/stable/explanation/fixtures.html#about-fixtures>))
 
 > In testing, a fixture provides a defined, reliable and consistent context for
 > the tests. This could include environment (for example a database configured
@@ -125,7 +125,7 @@ some of them which I think are very useful.
   it provides information for the requesting test function, see an example
   [here](<https://docs.pytest.org/en/stable/example/simple.html#request-example>).
 
-### Fixture Scope ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes>))
+### Fixture Scope ([see its pytest document](<https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes>))
 
 By default, fixtures have the scope of `function`, which means fixtures are
 destroyed (_i.e._, the cached objects are destroyed if any) at the end of the
@@ -153,7 +153,7 @@ invoked only once for multiple tests requiring it.
 I would also recommend going through the pytest documentation about [fixture
 availability](<https://docs.pytest.org/en/stable/reference/fixtures.html#fixture-availability>).
 
-### Teardown/Cleanup ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#teardown-cleanup-aka-fixture-finalization>))
+### Teardown/Cleanup ([see its pytest document](<https://docs.pytest.org/en/stable/how-to/fixtures.html#teardown-cleanup-aka-fixture-finalization>))
 
 If a test requires some necessary preparations by requiring one or more
 fixtures, we would like to have necessary clean up so that those
@@ -180,7 +180,7 @@ Insofar it is enough for us to understand how pytest does teardown, but it is
 recommended to read about [safe
 teardown](<https://docs.pytest.org/en/stable/how-to/fixtures.html#safe-teardowns>).
 
-### Overriding Fixture ([see its pytest doc](<https://docs.pytest.org/en/stable/how-to/fixtures.html#overriding-fixtures-on-various-levels>))
+### Overriding Fixture ([see its pytest document](<https://docs.pytest.org/en/stable/how-to/fixtures.html#overriding-fixtures-on-various-levels>))
 
 Fixture functions can be defined in the same `.py` file with its requiring
 tests. However, it is likely to cause problems if we want to use fixtures

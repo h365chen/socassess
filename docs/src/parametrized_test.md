@@ -10,7 +10,7 @@ tests. If there is a bug inside that code, they had to fix it everywhere.
 
 These tests are called _parametrized test_ and they can be created conveniently
 in pytest. The following example is copy-pasted from the pytest
-[doc](<https://docs.pytest.org/en/7.1.x/how-to/parametrize.html#pytest-mark-parametrize-parametrizing-test-functions>).
+[document](<https://docs.pytest.org/en/7.1.x/how-to/parametrize.html#pytest-mark-parametrize-parametrizing-test-functions>).
 
 ```python
 # content of test_expectation.py
