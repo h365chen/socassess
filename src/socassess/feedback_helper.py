@@ -34,11 +34,9 @@ def fill_content(feedback: str, func_with_params) -> str:
 
 def _context(qn, attr):
     """Fetch context given question number (qn) and attribute."""
-    try:
-        if attr is not None and qn in attr:
-            attr_context = attr[qn]
-    except AttributeError as e:  # noqa: F841
-        # if stu_answers is not inside interested
+    if attr is not None and qn in attr:
+        attr_context = attr[qn]
+    else:
         attr_context = None
     return attr_context
 
@@ -50,9 +48,12 @@ def context(qn, maps):
 
     """
     ctx = {}
-    for ele in ['questions', 'canonicals', 'stu_answers']:
-        if ele in maps.__dict__:
-            ctx |= {
-                ele: _context(qn, maps.__dict__[ele])
-            }
+    if "context" in maps.__dict__:
+        mapsctx = maps.__dict__["context"]
+        for ele in mapsctx:
+            _ctx = _context(qn, mapsctx[ele])
+            if _ctx is not None:
+                ctx |= {
+                    ele: _context(qn, mapsctx[ele])
+                }
     return ctx
