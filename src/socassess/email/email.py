@@ -69,6 +69,8 @@ def email_feedback(
     email_dict = {}
     for qn in need_expert:
         if qn not in current_fb_dict:
-            email_dict |= {qn: [f"{qn}: automated feedback is not available."]}
+            # the actual feedback will be filled later; we just need an empty
+            # list here as a placeholder
+            email_dict |= {qn: []}
     email_dict |= {'_email': [email_config.initial_reply]}
     return email_dict

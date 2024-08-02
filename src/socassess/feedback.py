@@ -35,7 +35,7 @@ def generate_feedback(ansdir, artifacts, *, config):
            and enabled_features["email"] is True:
             from .email import email_feedback
 
-            # a "_hidden_email_" key will be added
+            # a hidden "_email" key will be added
             fb_dict |= email_feedback(need_expert,
                                       fb_dict,
                                       ansdir,
