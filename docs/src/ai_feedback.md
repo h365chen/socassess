@@ -99,7 +99,7 @@ context = {
 }
 ```
 
-Given that, the user prompt will be a json string:
+Given that, the user prompt will be a json (but dumped as a string):
 
 ```json
 {
