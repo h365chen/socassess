@@ -64,3 +64,4 @@ but without leaking any infomation of the canonical or correct answer directly. 
 template = '''
 AI generated feedback:
 {feedback}'''  # support one key: `feedback`; AI response will replace {feedback}
+textwrap_width = 80

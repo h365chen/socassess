@@ -23,16 +23,18 @@ but without leaking any infomation of the canonical or correct answer directly. 
 template = '''
 AI generated feedback:
 {feedback}'''  # support one key: `feedback`; AI response will replace {feedback}
+textwrap_width = 80
 ```
 
 Most of them are passed to the OpenAI python client
 ([openai-python](<https://github.com/openai/openai-python>)) transparently,
 thereby you can refer to OpenAI's API
 [here](<https://platform.openai.com/docs/api-reference/chat/create>) for
-explanation on them. The only exception is the `template` key, which specifies
-how socassess displays the AI feedback.
+explanation on them. The two exceptions are the `template` and `textwrap_width`
+key, which specifies how socassess displays the AI feedback and with what
+maximum column width (unlimited if `textwrap_width` does not exist).
 
-Given the above configuration, the feedback will look like:
+Given the above configuration, a sample feedback might be:
 
 ```
 AI generated feedback:
