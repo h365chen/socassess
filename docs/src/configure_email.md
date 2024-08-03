@@ -91,7 +91,7 @@ with a `.txt` suffix.
 
 For example, in
 [`a1`](<https://github.com/h365chen/socassess/blob/main/examples/a1/a1/>),
-`test_email` created the \_attachment.txt and added a line
+`test_email` (shown below) created the \_attachment.txt and added a line
 `student_solution.txt` into it. Therefore, the email contains two attachments:
 *draft_feedback.txt* and *student_solution.txt.txt*
 
@@ -100,7 +100,7 @@ def test_email(artifacts, stu_answer):
     """Prepare email attachments.
 
     socassess uses _attachments.txt to determine what to attach in the email.
-    Here it sends out the student solution file.
+    Here it sends out the student solution file (`stu_answer.name`).
 
     """
     with (artifacts / '_attachments.txt').open('a') as f:
