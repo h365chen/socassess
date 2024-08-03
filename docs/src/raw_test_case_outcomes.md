@@ -1,13 +1,13 @@
 # Displaying Raw Test Case Outcomes
 
-Being able to obtain the raw test case outcomes often aids automated assessment
-development. There are several approaches to obtain that information.
+Being able to obtain raw test case outcomes often aids in the development of
+automated assessments. There are several approaches to obtain this information.
 
-## `pytest` command
+## `pytest` Command
 
-socassess invokes pytest for test case outcomes internally, with a set of
-pre-defined pytest command line flags. Currently, socassess invoke pytest as
-follows:
+`socassess` invokes `pytest` to obtain test case outcomes internally, using a
+set of pre-defined `pytest` command-line flags. Currently, `socassess` invokes
+`pytest` as follows:
 
 ```bash
 pytest \
@@ -17,16 +17,17 @@ pytest \
     /path/to/test_dir
 ```
 
-However, pytest accepts much more flexible command line flags such as selecting
-tests by keyword expressions `-k`, node ids `pytest test_mod.py::test_func`, or
-marker expressions `-m` (See [the complete pytest command-line
+However, `pytest` accepts much more flexible command-line flags, such as
+selecting tests by keyword expressions (`-k`), node ids (`pytest
+test_mod.py::test_func`), or marker expressions (`-m`) (See [the complete pytest
+command-line
 flags](<https://docs.pytest.org/en/7.1.x/reference/reference.html#command-line-flags>)).
-Therefore, I would recommend invoking `pytest` through command line while
+Therefore, I would recommend invoking `pytest` through the command line while
 developing test cases.
 
-## socassess with `--probing` but without `--feedback`
+## `socassess` with `--probing` but without `--feedback`
 
-Another approach is to invoke socassess with `--probing` but without
+Another approach is to invoke `socassess` with `--probing` but without
 `--feedback`, such as:
 
 ```bash
@@ -37,8 +38,8 @@ socassess feedback \
     --probing=probing_tests
 ```
 
-In this case, socassess will invoke pytest using the following
-command line flags and send output to console.
+In this case, `socassess` will invoke `pytest` using the following command-line
+flags and send the output to the console.
 
 ```bash
 pytest \
@@ -50,13 +51,13 @@ pytest \
     /path/to/test_dir
 ```
 
-_Note: when invoking socassess with `--probing`, the artifacts folder will be
+_Note: When invoking `socassess` with `--probing`, the artifacts folder will be
 re-created._
 
 ## Setting `raw_feedback = true` in `socassess.toml`
 
-The last approach is premature, which is to set `raw_feedback` to `true` in the
-`socassess.toml`, such as:
+The last approach is preliminary, which is to set `raw_feedback` to `true` in
+the `socassess.toml`, such as:
 
 ```toml
 [feature]
@@ -65,9 +66,9 @@ email = false
 raw_feedback = true
 ```
 
-This approach allows you to see test summary info from pytest alongside with
-feedback messages. If you set that in the `socassess.toml` of `a1`, running
-socassess will give you:
+This approach allows you to see test summary information from `pytest` alongside
+feedback messages. If you set this in the `socassess.toml` of `a1`, running
+`socassess` will yield:
 
 ```
 # Feedback

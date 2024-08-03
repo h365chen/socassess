@@ -1,7 +1,7 @@
 # Unexpected Failures
 
 Let's consider the following test case used in a first-year programming course
-which requires students to write C programs.
+that requires students to write C programs.
 
 ```python
 def test_mode():
@@ -22,32 +22,33 @@ def test_mode():
     pass
 ```
 
-Apparently the assessment creator has coded several novice-friendly message to
-aid students to interpret the feedback. Ideally, the test case should only fail
-in those assertions. However, this code can also fail at the line:
+The assessment creator has coded several novice-friendly messages to aid
+students in interpreting the feedback. Ideally, the test case should only fail
+at those assertions. However, this code can also fail at the line:
 
 ```python
     ans = list(map(int, lines[0].split()))
 ```
 
-It can fail since the student's program may simply output non-integer
-characters, failling the `map(int, ...)`. The feedback, in this case, will be:
+This failure can occur because the student's program may output non-integer
+characters, causing the `map(int, ...)` to fail. The resulting feedback would
+be:
 
 ```text
 ValueError: invalid literal for int() with base 10: 'mode'
 ```
 
-This is not novice-friendly. Even worse, it has nothing to do with C.
+This feedback is not novice-friendly and, even worse, it is unrelated to C
+programming.
 
-So the point I would like to mention here is that most of the time, what we want
-is to ensure the test case to only fail at assertions (or any place that is
-expected). If the test case failed at a place outside assertions. This is what I
-referred to as an unexpected failure.
+The point I want to make here is that most of the time, we want the test case to
+fail only at assertions or at any place that is expected. If the test case fails
+outside of assertions, this is what I refer to as an *unexpected failure*.
 
 ## Solution
 
-The solution is actually simple: for any test case that contains non-assertion
-code, we code an outcome *flipped* version.
+The solution is actually quite simple: for any test case that contains
+non-assertion code, we code an outcome *flipped* version.
 
 ```python
 def test_a():
@@ -59,4 +60,5 @@ def test_a_flipped():
     assert x != 0
 ```
 
-If one passed and the other failed, we know they both reached the assertion.
+If one passes and the other fails, we know they both reached the assertion. This
+strategy helps ensure that the test cases fail only for the intended reasons.

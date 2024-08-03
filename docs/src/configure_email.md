@@ -37,16 +37,16 @@ The attached files contain relevant context of the submission.
 See attachments
 '''
 initial_reply = '''
-An instructor has been notified for questions where pre-coded feedback are not available.
+An instructor has been notified for questions where pre-coded feedback is not available.
 '''  # the initial feedback to be shown while waiting for human feedback
 ```
 
-To make it more easier to inspect, we can attach files in the email. By default,
+To make it easier to inspect, we can attach files in the email. By default,
 socassess will only attach a `draft_feedback.txt` file. It is useful when the AI
 feature is enabled (`ai = true`), since it allows instructors to review the
 generated AI feedback.
 
-This is what student will see with several lines hidden:
+This is what students will see with several lines hidden:
 
 ```feedback
 # Feedback
@@ -76,7 +76,7 @@ your answer file aligns with all the requirements. Keep up the good work!
 
 ## _email
 
-An instructor has been notified for questions where pre-coded feedback are not available.
+An instructor has been notified for questions where pre-coded feedback is not available.
 ```
 
 This is the email:
@@ -85,7 +85,7 @@ This is the email:
 "By default, the email only has the draft_feedback.txt as the attachment")
 
 To add more attachments, socassess requires those files to be put inside an
-**_attachment.txt** file, and all files---including the \_attachment.txt---have
+**\_attachments.txt** file, and all files—including the \_attachments.txt—have
 to be inside the artifacts folder. Any additional attachment will be renamed
 with a `.txt` suffix.
 

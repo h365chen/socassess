@@ -4,7 +4,7 @@
 
 The most essential file is
 [`maps/__init__.py`](<https://github.com/h365chen/socassess/blob/main/examples/a1/a1/maps/__init__.py>).
-I'll start with its simple form without enabling email nor AI features. In this
+I'll start with its simple form, not enabling email or AI features. In this
 case, the file looks like:
 
 ```python
@@ -23,13 +23,13 @@ selected = {
 }
 ```
 
-The `"selected"` inside `__all__` is required since socassess dynamically
-imports the module _`maps`_---which also means the module/folder name has to be
-*maps*---and then it will look for the `selected` dict.
+The `"selected"` inside `__all__` is required because socassess dynamically
+imports the module _`maps`_—which also means the module/folder name has to be
+*maps*—and then it will look for the `selected` dictionary.
 
-The `selected` dict contains the things to be assessed. You can think of it as
-*question*s for an assignment, or small components of a large component. For
-example, you can make it contain `compile` and `execution` like the following,
+The `selected` dictionary contains the items to be assessed. You can think of it
+as *questions* for an assignment, or small components of a large component. For
+example, you can include `compile` and `execution` as separate components,
 indicating you want to provide feedback for `compile` and `execution`
 separately.
 
@@ -40,9 +40,9 @@ selected = {
 }
 ```
 
-For each key, socassess uses its corresponding dict value to map test case
+For each key, socassess uses its corresponding dictionary value to map test case
 outcomes into feedback messages. For example, in the above case,
-`mapping.single` is for the `single` question. Assume its content is as:
+`mapping.single` is for the `single` question. Assume its content is as follows:
 
 ```python
 # inside mapping.py
@@ -63,17 +63,16 @@ will be shown.
 ## single
 
 Congrats! test_single passed.
-
 ```
 
-If an automated feedback cannot be provided, a default feedback message will be
-shown for the relevant question, informing students that there are certain
-parts haven't been assessed. For the above case, it will show:
+If automated feedback cannot be provided, a default feedback message will be
+shown for the relevant question, informing students that certain parts have not
+been assessed. For the above case, it will show:
 
 ```
 ## non_auto
 
-non_auto: automated feedback is not available
+non_auto: automated feedback is not available.
 ```
 
 The default feedback message can be customized in
@@ -81,13 +80,13 @@ The default feedback message can be customized in
 The default template is:
 
 ```toml
-not_available = "{question}: automated feedback is not available"
+not_available = "{question}: automated feedback is not available."
 ```
 
-Where `{question}` will be replaced by the dict key, _i.e._, `non_auto`.
+Where `{question}` will be replaced by the dictionary key, _i.e._, `non_auto`.
 
-You may notice in addition to `not_available`, there are few more configurable
-items in the `[template]` table (TOML calls it a
+In addition to `not_available`, there are a few more configurable items in the
+`[template]` table (TOML calls it a
 [*table*](<https://toml.io/en/v1.0.0#table>)).
 
 The default feedback template in
@@ -102,15 +101,15 @@ one = '''
 ## {question}
 
 {text}
-''' # support two keys: `question` and `text`
+''' # supports two keys: `question` and `text`
 
 # full feedback of all questions
-full_separator = "\n"  # to join the list of feedback of all question
+full_separator = "\n"  # to join the list of feedback of all questions
 full = '''
 # Feedback
 
-{text}''' # support one key: `text`
-not_available = "{question}: automated feedback is not available." # support one key: `question`
+{text}''' # supports one key: `text`
+not_available = "{question}: automated feedback is not available." # supports one key: `question`
 ```
 
 socassess assumes there can be multiple maps for a single question.
@@ -133,7 +132,7 @@ level = {
 In the above example, if the student's program passed both
 `test_it::test_level_1` and `test_it::test_level_2`, then both feedback messages
 *Congrats! test_level_1 passed.* and *Congrats! test_level_2 passed.* should be
-shown. socassess uses `one_separator` to concat the two messages to form
+shown. socassess uses `one_separator` to concatenate the two messages to form
 `{text}`, then the final message for this one question will be formatted using
 `one`, with `{question}` being replaced by `level`. Therefore, the feedback
 should look like:
@@ -146,8 +145,8 @@ Congrats! test_level_2 passed.
 
 ```
 
-If there are multiple questions, for example if we have questions `single`,
-`level`, and `non_auto`, then socassess will use `full_separator` to concat
+If there are multiple questions, for example, if we have questions `single`,
+`level`, and `non_auto`, then socassess will use `full_separator` to concatenate
 their formatted feedback messages to form `{text}` for `full`:
 
 ```text
@@ -170,14 +169,14 @@ non_auto: automated feedback is not available.
 
 ## `FeedbackLevel`
 
-There are times that certain feedback should be given higher priority than
+There are times when certain feedback should be given higher priority than
 others, even though their underlying test cases do not have dependencies. For
-example, if a student's code has style issue and meanwhile it is not compilable,
-and you somehow put the relevant feedback messages in the same question, in this
-case, you might just want to provide feedback focusing on the compilation.
-Feedback on style issues can be postponed until the student's program becomes
-compilable. `FeedbackLevel` is used to control feedback priorities.
-
+example, if a student's code has a style issue and meanwhile it is not
+compilable, and you somehow put the relevant feedback messages in the same
+question, in this case, you might just want to provide feedback focusing on the
+compilation. Feedback on style issues can be postponed until the student's
+program becomes compilable. `FeedbackLevel` is used to control feedback
+priorities.
 
 The first case is to control feedback priorities within the same question.
 
@@ -250,9 +249,9 @@ Since they are `IntEnum`, so using an integer also works, such as:
 ```
 
 To control feedback priorities across questions, we have to use
-`FeedbackLevel.SINGLE`. If a feedback message to shown is configured at the
+`FeedbackLevel.SINGLE`. If a feedback message to be shown is configured at the
 level of `FeedbackLevel.SINGLE`, then socassess will only display this feedback
-message, regardless feedback levels.
+message, regardless of other feedback levels.
 
 ```python
 level = {
@@ -293,10 +292,11 @@ future, but it is what it is for now.
 A use case is when the submitted file is incorrectly named
 (`test_incorrect_file_name`) or not compilable (`test_compilation`), then it
 might lead to lots of `not_available` feedback since test cases for other
-questions are likely to be `skipped` and thus socassess cannot find valid
-mappings for those questions. In this case, setting the feedback priority for
-`test_incorrect_file_name` or `test_compilation` as `FeedbackLevel.SINGLE` is
-ideal.
+questions are likely to be
+
+ `skipped` and thus socassess cannot find valid mappings for those questions. In
+this case, setting the feedback priority for `test_incorrect_file_name` or
+`test_compilation` as `FeedbackLevel.SINGLE` is ideal.
 
 ## `artifacts/report.xml`
 
@@ -308,13 +308,13 @@ Usually, I will invoke socassess using:
 socassess feedback --artifacts=artifacts ...
 ```
 
-In socassess, the provided maps does not access the pytest results directly. The
+In socassess, the provided maps do not access the pytest results directly. The
 pytest results are saved into a file called `report.xml` under the specified
 artifacts path. Therefore in my case, it will be `artifacts/report.xml`.
 
 The first reason is sometimes I would like to access the intermediate result for
 further inspection. The second reason is certain platforms such as GitLab accept
-XML file for displaying test results. The third reason is that I don't have to
+XML files for displaying test results. The third reason is that I don't have to
 rerun pytest when I just want to tweak my feedback messages; this is very useful
 when a certain test takes a long time and meanwhile you are sure that the result
 of it will not change.
@@ -330,7 +330,7 @@ socassess feedback \
     --probing=probing_tests --feedback=maps
 ```
 
-is the same as invoke pytest and maps separately:
+is the same as invoking pytest and maps separately:
 
 ```bash
 # first command
@@ -351,5 +351,5 @@ socassess feedback \
 To tweak my feedback messages, I can invoke the second command multiple times
 while the first command only once.
 
-Insofar a basic introduction of socassess is provided. The next few sections
-will talk about more complex use cases.
+Insofar, a basic introduction to socassess is provided. The next few sections
+will discuss more complex use cases.

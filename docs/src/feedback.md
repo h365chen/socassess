@@ -1,19 +1,18 @@
 # Feedback
 
-Recall the target of socassess is to
+Recall that the goal of socassess is to:
 
 1. Give automated feedback only on solutions that were previously considered;
 1. Otherwise, seek human feedback.
 
-Previously we only talked about how to enhance our assessment code, but we
-haven't talked about how to seek human feedback when there is an unexpected
-solution.
+Previously, we discussed enhancing our assessment code, but we have not yet
+addressed how to seek human feedback for unexpected solutions.
 
-The idea is that: instead of coding a feedback message for each test case, we
-code feedback messages for test case sets. Here is a simple example showing
-assessing a SQL query with some details omitted.
+The idea is to code feedback messages for sets of test cases rather than
+individual cases. Here is a simplified example of assessing a SQL query with
+some details omitted.
 
-These are some relevant test cases.
+Here are some relevant test cases:
 
 ```python
 def test_exist(stu_answer):
@@ -32,9 +31,9 @@ def test_query_flipped():
     pass
 ```
 
-These are the feedback messages. Notice that I will also code some complimentary
-feedback messages since I believe they are very helpful in motivating students
-to learn.
+Here are the feedback messages. Note that I will also include some complimentary
+feedback messages, as I believe they are very helpful in motivating students to
+learn:
 
 ```python
     frozenset([
@@ -51,18 +50,16 @@ to learn.
         'test_it::test_query::failed',
         'test_it::test_query_flipped::passed',
     ]): {
-        'feedback': 'Oops! Your query returns incorrect results. Remember you can always contact the instructor team if you have spent too much time figuring it out on your own.'
+        'feedback': 'Oops! Your query returns incorrect results. Remember, you can always contact the instructor team if you have spent too much time figuring it out on your own.'
     },
 ```
 
 ## Human Feedback
 
-Given the above pre-coded feedback messages, is it possible that the test case
-outcomes do not fall into any of them? Apparently it is a yes. For example, both
-`test_query` and `test_query_flipped` can fail at the same time due to, say,
-database connection issues. These feedback messages have not covered that
-situation.
+Given the above pre-coded feedback messages, is it possible for the test case
+outcomes to fall outside these categories? Yes, for instance, both `test_query`
+and `test_query_flipped` might fail simultaneously due to a database connection
+issue, a scenario not covered by the existing feedback messages.
 
-When there is no automated feedback message can be provided, socassess will seek
-human feedback. Currently, it can send emails to instructors, where the content
-can be customized.
+When no automated feedback can be provided, socassess will seek human feedback.
+Currently, it can send emails to instructors, with customizable content.

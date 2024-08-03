@@ -1,6 +1,6 @@
 # Seek AI Feedback through ChatGPT
 
-AI feedback is configured by following keys in the `socassess.toml`:
+AI feedback is configured by following the keys in the `socassess.toml`:
 
 ```toml
 [feature]
@@ -17,22 +17,22 @@ presence_penalty = 0
 system_prompt = """\
 You are an expert in assessing students' answers. Your message will be sent \
 directly to students. When the instructor provides you with a student's answer, \
-you will give a short feedback message to correct student's misunderstanding, \
-but without leaking any infomation of the canonical or correct answer directly. \
+you will give a short feedback message to correct the student's misunderstanding, \
+but without leaking any information about the canonical or correct answer directly. \
        """  # per TOML spec, in "" string, "\" will be used to trim whitespaces and newlines
 template = '''
 AI generated feedback:
-{feedback}'''  # support one key: `feedback`; AI response will replace {feedback}
+{feedback}'''  # supports one key: `feedback`; AI response will replace {feedback}
 textwrap_width = 80
 ```
 
-Most of them are passed to the OpenAI python client
+Most of these are passed to the OpenAI Python client
 ([openai-python](<https://github.com/openai/openai-python>)) transparently,
 thereby you can refer to OpenAI's API
-[here](<https://platform.openai.com/docs/api-reference/chat/create>) for
-explanation on them. The two exceptions are the `template` and `textwrap_width`
-key, which specifies how socassess displays the AI feedback and with what
-maximum column width (unlimited if `textwrap_width` does not exist).
+[here](<https://platform.openai.com/docs/api-reference/chat/create>) for an
+explanation of them. The two exceptions are the `template` and `textwrap_width`
+keys, which specify how socassess displays the AI feedback and with what maximum
+column width (unlimited if `textwrap_width` does not exist).
 
 Given the above configuration, a sample feedback might be:
 
@@ -55,7 +55,7 @@ By default, socassess sends nothing to ChatGPT seeking feedback, therefore, it
 is likely that ChatGPT will make a reply such as: *Please provide me with the
 student's answer that you would like me to assess.*
 
-That said, in order to receive a valid AI feedback, you have to provide some
+That said, in order to receive valid AI feedback, you have to provide some
 context, such as the student answer for the question. In the following example,
 I provided the student answer for the `non_auto` question.
 
@@ -70,7 +70,7 @@ from socassess import userargs
 ~    # required
 ~    "selected",
 ~
-~    # needed only if ai feature is enabled, see below
+~    # needed only if AI feature is enabled, see below
 ~    "context",
 ~]
 ~
@@ -99,7 +99,7 @@ context = {
 }
 ```
 
-Given that, the user prompt will be a json (but dumped as a string):
+Given that, the user prompt will be a JSON (but dumped as a string):
 
 ```json
 {

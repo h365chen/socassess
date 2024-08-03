@@ -1,28 +1,28 @@
 # Introduction
 
-**socassess** is a command line tool to assist instructors to create
+**socassess** is a command line tool designed to help instructors create
 high-quality automated assessments and provide effective formative feedback. I
-happened to create many automated assessments for various programming
-assignments, including those involving a development board. However, creating
-automated assessments that can accurately detect mistakes in students' work is
-not as straightforward as many might expect.
+have created many automated assessments for various programming assignments,
+including those that involve a development board. However, creating automated
+assessments that can accurately detect mistakes in students' work is not as
+straightforward as one might expect.
 
-For instance, it is challenging to predict the solutions students may produce.
-As a result, the initial assessment code is likely to encounter bugs where it
-gives unexpected results for unanticipated solutions. It is particularly
-problematic when those solutions being marked incorrect are in fact correct
-solutions. It will greatly confuse students, especially on those lacking
-confidence.
+For instance, it can be challenging to predict the solutions students may
+produce. As a result, the initial assessment code is likely to encounter bugs,
+leading to unexpected results for unanticipated solutions. This is particularly
+problematic when correct solutions are mistakenly marked as incorrect, which can
+greatly confuse students, especially those lacking confidence.
 
 Should I fix my assessment code, or should I just make an announcement about the
 bug? Well, it depends. If the issue is trivial, perhaps making an announcement
-and leaving it as is could suffice. However, a better approach might be:
+and leaving it as is could suffice. However, a better *approach* might be:
 
-1. **Give automated feedback only on solutions that were previously considered;**
+1. **Give automated feedback only on solutions that were previously
+   considered;**
 1. **Otherwise, seek human feedback.**
 
-While there were several other reasons such as easier assessment code management
-and introducing connections among test cases, to achieve the aforementioned
-better approach was the primary reason for me to create this project. I hope
-this tool can assist assessment creators to develop better automated
+There were several other reasons for creating this project, such as easier
+assessment code management and introducing connections among test cases.
+However, the primary reason was to achieve the aforementioned approach. I hope
+this tool can assist assessment creators in developing better automated
 assessments.
