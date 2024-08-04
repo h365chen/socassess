@@ -1,7 +1,7 @@
 # Missing Dependencies
 
-Unexpected failure is about potential issues within each test case. However,
-a test case could also fail because its prerequisite test case has failed.
+Unexpected failure is about potential issues within each test case. However, a
+test case could also fail because its prerequisite test case has failed.
 
 Generally, when it comes to unit testing, most people will think that test cases
 should be isolated from others. This approach works because software developers

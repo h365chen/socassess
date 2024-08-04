@@ -1,7 +1,7 @@
 # Unit Testing Framework
 
-A common misunderstanding about automated assessments is that people think they are
-trivial to create. However, my experience tells me that it is, in fact, a
+A common misunderstanding about automated assessments is that people think they
+are trivial to create. However, my experience tells me that it is, in fact, a
 difficult task.
 
 The first time I created an automated assessment to grade students' programs, I
@@ -108,8 +108,8 @@ def test_obj(my_obj):
 ```
 
 pytest has lots of useful built-in fixtures (see [its
-list](<https://docs.pytest.org/en/stable/reference/fixtures.html>)). Here are some
-of them which I think are very useful:
+list](<https://docs.pytest.org/en/stable/reference/fixtures.html>)). Here are
+some of them which I think are very useful:
 
 - [`capsys`/`capfd`](<https://docs.pytest.org/en/stable/how-to/capture-stdout-stderr.html#accessing-captured-output-from-a-test-function>):
   it allows you to access captured output from a test function without caring

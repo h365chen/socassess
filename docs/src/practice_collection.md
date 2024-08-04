@@ -2,5 +2,5 @@
 
 TODO
 
-I'll demonstrate several practice that I used socassess to compose my automated
+I'll demonstrate several practice that socassess can help in composing automated
 assessments.

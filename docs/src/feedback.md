@@ -31,9 +31,9 @@ def test_query_flipped():
     pass
 ```
 
-Here are the feedback messages. Note that I will also include some complimentary
-feedback messages, as I believe they are very helpful in motivating students to
-learn:
+Here are the feedback messages[^1]. Note that I will also include some
+complimentary feedback messages, as I believe they are very helpful in
+motivating students to learn:
 
 ```python
     frozenset([
@@ -63,3 +63,9 @@ issue, a scenario not covered by the existing feedback messages.
 
 When no automated feedback can be provided, socassess will seek human feedback.
 Currently, it can send emails to instructors, with customizable content.
+
+---
+
+[^1]: In feedback messages, `fronzenset` has to be used since socassess needs it
+to be hashable. (See [more info about set and
+fronzenset](<https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset>))
