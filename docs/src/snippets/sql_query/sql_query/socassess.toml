@@ -1,6 +1,7 @@
 [feature]
 ai = false
-email = false
+email = true
+raw_feedback = false
 
 
 [template]
@@ -35,9 +36,9 @@ to = "to@address.com"  # to which address the email is sent, i.e., the expert em
 smtp_server = "smtp.server.com"  # the SMTP server to use
 
 [email.content]
-subject = "[SocAssess][Assignment 1] Human feedback needed"
+subject = "[socassess][SQL] Human feedback needed"
 email_body = '''
-SocAssess is needing human feedback.
+socassess is needing human feedback.
 The attached files contain relevant context of the submission.
 
 See attachments
@@ -48,7 +49,7 @@ An instructor has been notified for questions where pre-coded feedback are not a
 
 
 [openai]
-openai_key = "sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+openai_key = "<key>, if empty, use OPENAI_KEY environment variable"
 model = "gpt-3.5-turbo"
 temperature = 1
 max_tokens = 2048
@@ -64,4 +65,3 @@ but without leaking any infomation of the canonical or correct answer directly. 
 template = '''
 AI generated feedback:
 {feedback}'''  # support one key: `feedback`; AI response will replace {feedback}
-textwrap_width = 80

@@ -7,7 +7,7 @@ that can provide high-quality formative feedback.
 
 However, if an unexpected test failure happens.
 
-![No automated feedback available](docs/diagram.png)
+![No automated feedback available](docs/src/figs/diagram.png)
 
 ## Prepare a python environment
 
@@ -18,7 +18,7 @@ management and to handle our virtual environment.
 poetry new hw1
 ```
 
-Install SocAssess and then activate the virtual environment.
+Install socassess and then activate the virtual environment.
 
 ```
 cd hw1
@@ -37,7 +37,7 @@ usage: socassess [-h] {create,feedback} ...
 
 positional arguments:
   {create,feedback}
-    create           Create SocAssess starter code in a new folder
+    create           Create socassess starter code in a new folder
     feedback         Generate feedback
 
 options:
@@ -46,7 +46,7 @@ options:
 
 ## Create the starter code
 
-The original hw1/hw1 can be deleted. We will use SocAssess to re-create one with
+The original hw1/hw1 can be deleted. We will use socassess to re-create one with
 starter code in it.
 
 ```
@@ -188,9 +188,9 @@ to = "to@address.com"  # to which address the email is sent, i.e., the expert em
 smtp_server = "smtp.server.com"  # the SMTP server to use
 
 [email.content]
-subject = "[SocAssess][Assignment 1] Human feedback needed"
+subject = "[socassess][Assignment 1] Human feedback needed"
 email_body = '''
-SocAssess is needing human feedback.
+socassess is needing human feedback.
 The attached files contain relevant context of the submission.
 
 See attachments

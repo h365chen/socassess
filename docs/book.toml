@@ -3,3 +3,19 @@ authors = ["Huanyi Chen"]
 language = "en"
 multilingual = false
 src = "src"
+
+[output.html]
+smart-punctuation = true
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+git-repository-url = "https://github.com/h365chen/socassess"
+
+[output.html.print]
+enable = false
+
+[output.html.code]
+hidelines = { python = "~", toml = "~" }
+
+[preprocessor]
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"

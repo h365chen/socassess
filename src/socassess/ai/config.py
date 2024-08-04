@@ -17,6 +17,7 @@ class AIConfig:
     presence_penalty: float
     system_prompt: str
     feedback_template: str
+    textwrap_width: int
 
     def __init__(self, config: Config):
         config_dict = config.config_dict
@@ -38,3 +39,4 @@ class AIConfig:
         self.presence_penalty = ai_dict["presence_penalty"]
         self.system_prompt = ai_dict["system_prompt"]
         self.feedback_template = ai_dict["template"]
+        self.textwrap_width = ai_dict["textwrap_width"] if "textwrap_width" in ai_dict else None  # noqa: E501

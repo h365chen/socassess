@@ -46,7 +46,9 @@ def ai_feedback(
     for qn, context in need_expert.items():
         response = ask(client, json.dumps(context), config=ai_config)
         ai_fb = response.choices[0].message.content
-        ai_fb = textwrap.fill(ai_fb, width=80)
+        if ai_config.textwrap_width is not None:
+            ai_fb = textwrap.fill(ai_fb, width=ai_config.textwrap_width)
+
         ai_dict |= {qn: [ai_config.feedback_template.format(question=qn,
                                                             feedback=ai_fb)]}
     return ai_dict

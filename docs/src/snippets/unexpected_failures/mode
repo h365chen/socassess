@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "mode is: 2 3"
