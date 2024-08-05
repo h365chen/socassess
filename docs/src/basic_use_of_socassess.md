@@ -292,11 +292,10 @@ future, but it is what it is for now.
 A use case is when the submitted file is incorrectly named
 (`test_incorrect_file_name`) or not compilable (`test_compilation`), then it
 might lead to lots of `not_available` feedback since test cases for other
-questions are likely to be
-
- `skipped` and thus socassess cannot find valid mappings for those questions. In
-this case, setting the feedback priority for `test_incorrect_file_name` or
-`test_compilation` as `FeedbackLevel.SINGLE` is ideal.
+questions are likely to be `skipped` and thus socassess cannot find valid
+mappings for those questions. In this case, setting the feedback priority for
+`test_incorrect_file_name` or `test_compilation` as `FeedbackLevel.SINGLE` is
+ideal.
 
 ## `artifacts/report.xml`
 

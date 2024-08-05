@@ -46,7 +46,7 @@ socassess will only attach a `draft_feedback.txt` file. It is useful when the AI
 feature is enabled (`ai = true`), since it allows instructors to review the
 generated AI feedback.
 
-This is what students will see with several lines hidden:
+This is what students will see:
 
 ```feedback
 # Feedback
