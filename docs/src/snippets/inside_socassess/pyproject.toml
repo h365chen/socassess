@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "inside-socassess"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+socassess = {path = "../../../..", develop = true}
+
+
+[tool.poetry.group.dev.dependencies]
+python-lsp-server = {extras = ["all"], version = "^1.11.0"}
+ipython = "^8.26.0"
+ipdb = "^0.13.13"
+importmagic = "^0.1.7"
+epc = "^0.0.5"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -81,7 +81,7 @@ An instructor has been notified for questions where pre-coded feedback is not av
 
 This is the email:
 
-![email_default_attachment_with_ai_enabled](figs/email_default_attachment_with_ai_enabled.png
+![email_default_attachment_with_ai_enabled](../../figs/email_default_attachment_with_ai_enabled.png
 "By default, the email only has the draft_feedback.txt as the attachment")
 
 To add more attachments, socassess requires those files to be put inside an
@@ -121,5 +121,5 @@ artifacts/
         Great! I put something into my answer file.
 ```
 
-![email_multiple_attachment_with_ai_enabled](figs/email_multiple_attachment_with_ai_enabled.png
+![email_multiple_attachment_with_ai_enabled](../../figs/email_multiple_attachment_with_ai_enabled.png
 "Attached multiple attachments to the email")
