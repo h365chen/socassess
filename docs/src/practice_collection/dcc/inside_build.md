@@ -38,6 +38,6 @@ We can clearly see that `dcc` has two parts in checking student's code:
 - runtime evaluation
 
 In order to conduct runtime evaluation, C code put inside the folder
-`wrapper_c/` are needed. Student's code is instrumented by these C code so that
-runtime context can be captured; otherwise, student's program might simply
-produce a `segment fault` message providing no useful information.
+`wrapper_c/`/`embedded_src` is needed. Student's code is instrumented by these C
+code so that runtime context can be captured; otherwise, student's program might
+simply produce a `segment fault` message providing no useful information.

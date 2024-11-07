@@ -44,9 +44,9 @@ As its README says:
 > ```
 
 To build it, simply do `make dcc`. It will put together necessary files into a
-folder `_build` (the default folder assigned to `BUILD_DIR`) and then remove it.
-The final executable `dcc` is just a zip over the `_build` folder. As indicated
-by the last few log lines of `make dcc`.
+folder `_build` (the default folder assigned to `BUILD_DIR`). The final
+executable `dcc` is just a zip over the `_build` folder. As indicated by the
+last few log lines of `make dcc`.
 
 ```bash
 ~rm -rf _build
