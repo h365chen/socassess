@@ -37,8 +37,8 @@ def main() -> int:
             artifacts.mkdir(parents=False, exist_ok=False)
             with Path(args.probing) as pt:
                 report_xml = os.path.join(artifacts, 'report.xml')
-                # if only "--with-probing", then we output things to console
-                # for inspection
+                # if only "--probing" is present, then we output things to
+                # console for inspection
                 if not args.feedback:
                     pytest.main([
                         f"--junitxml={report_xml}",
