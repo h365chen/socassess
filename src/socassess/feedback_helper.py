@@ -19,16 +19,40 @@ def extract(onemap: dict):
 
 
 def fill_content(feedback: str, func_with_params) -> str:
-    """Fill {content} in the feedback message."""
+    """Fill fields in the feedback message template.
+
+    The number of fields inside the feedback message must match the number of
+    key-values returned by the function.
+
+    socassess first escape all `{` and `}` by replacing them into `{{` and
+    `}}`, then change back those fields to be filled.
+
+    For example, if the feedback template is "{a} {b} {c} d" and the fields are
+    {a=1, b=2} inside the user maps, then the feedback to be filled will be
+    "{a} {b} {{c}} d", so that in the end only fields `a` and `b` are filled.
+
+    """
     assert func_with_params is not None
+    # escape all `{` and `}`
+    feedback = feedback.replace('{', '{{').replace('}', '}}')
     if isinstance(func_with_params, dict):
         func = func_with_params.pop('name')
         params = func_with_params.pop('params')
-        feedback = feedback.format(content=func(params=params))
+        user_defined_fields = func(params=params)
+        for k in user_defined_fields:
+            feedback = feedback.replace(
+                f"{{{{{k}}}}}", f"{{{k}}}"
+            )
+        feedback = feedback.format(**user_defined_fields)
     else:
         # in case there is no params
         func = func_with_params
-        feedback = feedback.format(content=func())
+        user_defined_fields = func()
+        for k in user_defined_fields:
+            feedback = feedback.replace(
+                f"{{{{{k}}}}}", f"{{{k}}}"
+            )
+        feedback = feedback.format(**user_defined_fields)
     return feedback
 
 
