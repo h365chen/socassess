@@ -27,14 +27,3 @@
     - [AI Feedback](./use_socassess/non_automated_feedback/ai_feedback.md)
 
     - [Configure Email](./use_socassess/non_automated_feedback/configure_email.md)
-
-- [Practice Collection](./practice_collection.md)
-
-  - [dcc](./practice_collection/dcc.md)
-
-    - [Inside \_build](./practice_collection/dcc/inside_build.md)
-
-    - [Compile time evaluation](./practice_collection/dcc/compile_time_eval.md)
-
-    - [Runtime evaluation](./practice_collection/dcc/runtime_eval.md)
-
